@@ -12,6 +12,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", require("./routes/auth.js"));
+app.use("/api", require("./routes/links.js"));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
