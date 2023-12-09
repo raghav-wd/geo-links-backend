@@ -1,7 +1,7 @@
 const db = require("../db");
 
 exports.getAllUserLinks = (req, res) => {
-  const sql = `SELECT url FROM links WHERE user_id=?`;
+  const sql = `SELECT _id,url FROM links WHERE user_id=?`;
 
   db.query(sql, [req.body.user_id], (error, result) => {
     if (error)
