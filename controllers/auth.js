@@ -1,11 +1,15 @@
 const db = require("../db");
+const { getId } = require("../utils/getId");
 
 exports.signup = (req, res) => {
-  const sql = `INSERT INTO users (username,email,password) VALUES (?,?,?)`;
+  const auth_id = getId();
+  const user_id = getId();
+
+  const sql = `BEGIN;INSERT INTO auth (_id,email,password) VALUES (?,?,?);INSERT INTO user (_id,auth_id) VALUES (?,?);COMMIT;`;
 
   db.query(
     sql,
-    [req.body.username, req.body.email, req.body.password],
+    [auth_id, req.body.email, req.body.password, user_id, auth_id],
     (error, result) => {
       if (error)
         return res
@@ -17,11 +21,11 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  const sql = `SELECT username,email FROM users WHERE email=? AND password=?`;
+  const sql = `SELECT _id,email FROM auth WHERE email=? AND password=?`;
 
   db.query(sql, [req.body.email, req.body.password], (error, result) => {
     if (error)
-      return res.status(500).json({ message: "Error while loging in", error });
+      return res.status(500).json({ message: "Error while logging in", error });
     if (result.length) res.json(result[0]);
     else res.json({ message: "Wrong credentials" });
   });

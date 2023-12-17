@@ -7,6 +7,13 @@ var db = mysql.createConnection({
   password: "L9Z5Xy#ABm*qYFQ",
 });
 
+// var db = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   database: "geo-links",
+//   multipleStatements: true,
+// });
+
 db.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
