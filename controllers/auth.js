@@ -27,6 +27,6 @@ exports.login = (req, res) => {
     if (error)
       return res.status(500).json({ message: "Error while logging in", error });
     if (result.length) res.json(result[0]);
-    else res.json({ message: "Wrong credentials" });
+    else res.status(401).json({ message: "Wrong credentials" });
   });
 };

@@ -31,7 +31,7 @@ exports.addLink = (req, res) => {
         return res
           .status(500)
           .json({ message: "Error while adding a link", error });
-      res.json(result);
+      res.json({ linkId });
     }
   );
 };
