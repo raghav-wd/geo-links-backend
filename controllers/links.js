@@ -9,7 +9,7 @@ exports.getAllUserLinks = (req, res) => {
     if (error)
       return res
         .status(500)
-        .json({ message: "Error while fetching all the links", error });
+        .json({ message: "Error while fetching all the links" });
 
     result.forEach((res) => {
       renameKey(res, "_id", "id");
@@ -37,9 +37,7 @@ exports.addLink = (req, res) => {
     ],
     (error, result) => {
       if (error)
-        return res
-          .status(500)
-          .json({ message: "Error while adding a link", error });
+        return res.status(500).json({ message: "Error while adding a link" });
       res.json({ linkId });
     }
   );
@@ -50,9 +48,7 @@ exports.deleteLink = (req, res) => {
 
   db.query(sql, [req.query.link_id], (error, result) => {
     if (error)
-      return res
-        .status(500)
-        .json({ message: "Error while deleting a link", error });
+      return res.status(500).json({ message: "Error while deleting a link" });
     res.json(result);
   });
 };
@@ -71,9 +67,7 @@ exports.editLink = (req, res) => {
   bodyList.push(req.body.link_id);
   db.query(sql, bodyList, (error, result) => {
     if (error)
-      return res
-        .status(500)
-        .json({ message: "Error while editting a link", error });
+      return res.status(500).json({ message: "Error while editing a link" });
     res.json(result);
   });
 };
