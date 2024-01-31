@@ -2,6 +2,26 @@ const db = require("../db");
 const { getId } = require("../utils/getId");
 const { renameKey } = require("../utils/renameKey");
 
+exports.getAllUserLinksByUsername = (req, res) => {
+  const sql = `SELECT _id,user_id,url_title,url,url_type FROM links WHERE user_id=(SELECT _id FROM user WHERE username=? LIMIT 1);`;
+
+  db.query(sql, [req.query.username], (error, result) => {
+    if (error)
+      return res
+        .status(500)
+        .json({ message: "Error while fetching all the links" });
+
+    result.forEach((res) => {
+      renameKey(res, "_id", "id");
+      renameKey(res, "url_type", "type");
+      renameKey(res, "url", "name");
+      renameKey(res, "url_title", "link");
+      res.hidden = false;
+    });
+    res.json([...result]);
+  });
+};
+
 exports.getAllUserLinks = (req, res) => {
   const sql = `SELECT _id,url_title,url,url_type FROM links WHERE user_id=?`;
 
