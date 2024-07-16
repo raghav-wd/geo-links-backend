@@ -12,9 +12,9 @@ app.get("/", verifyToken, (req, res) => {
   res.send("i am runnin");
 });
 
-// app.use("/api", require("./routes/auth.js"));
-// app.use("/api", require("./routes/links.js"));
-// app.use("/api", require("./routes/styles.js"));
+app.use("/api", require("./routes/auth.js"));
+app.use("/api", require("./routes/links.js"));
+app.use("/api", require("./routes/styles.js"));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);

@@ -29,13 +29,12 @@ exports.verifyToken = (req, res, next) => {
   try {
     // Verify token
     const decoded = jwt.verify(token, "your_secret_key");
-
     // Access the user ID from the decoded payload
     const userId = decoded.userId;
 
     // Attach user ID to the request object for future use
     req.userId = userId;
-
+    console.log(req.userId);
     // Call the next middleware
     next();
   } catch (error) {

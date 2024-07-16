@@ -10,7 +10,7 @@ var mysql = require("mysql");
 var db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  database: "geo-links",
+  database: "estring",
   multipleStatements: true,
 });
 

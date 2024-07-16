@@ -1,4 +1,5 @@
 const db = require("../db");
+const { generateToken } = require("../middlewares/auth");
 const { getId } = require("../utils/getId");
 
 exports.signup = (req, res) => {
@@ -41,7 +42,7 @@ exports.login = (req, res) => {
           return res
             .status(500)
             .json({ message: "Error while logging in 2", error });
-        res.json(resu[0]);
+        res.json(generateToken({ userId: resu[0]._id }));
       });
     } else res.status(401).json({ message: "Wrong credentials" });
   });

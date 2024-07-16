@@ -45,19 +45,15 @@ exports.getAllUserLinks = (req, res) => {
 exports.addLink = (req, res) => {
   const linkId = getId();
   const sql = `INSERT INTO links (_id,user_id,url_title,url,url_type) VALUES (?,?,?,?,?)`;
-
+  console.log(req);
   db.query(
     sql,
-    [
-      linkId,
-      req.body.user_id,
-      req.body.url_title,
-      req.body.url,
-      req.body.url_type,
-    ],
+    [linkId, req.userId, req.body.url_title, req.body.url, req.body.url_type],
     (error, result) => {
       if (error)
-        return res.status(500).json({ message: "Error while adding a link" });
+        return res
+          .status(500)
+          .json({ message: "Error while adding a link", error });
       res.json({ linkId });
     }
   );
